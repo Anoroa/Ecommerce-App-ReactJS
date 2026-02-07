@@ -8,7 +8,7 @@ const Header = () => {
         {/* Center Text */}
         <h3 className="text-xs lg:text-sm md:text-base text-center px-6">
           Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!{" "}
-          <Link to="/" className="font-bold underline ml-1 text-xs lg:text-sm">
+          <Link to="/shop" className="font-bold underline ml-1 text-xs lg:text-sm">
             Shop Now
           </Link>
         </h3>
