@@ -5,7 +5,7 @@ import axios from "axios";
 import Paginate from "../components/Paginate.jsx";
 import Skeleton from "../components/Skeleton.jsx";
 import {useDispatch} from "react-redux";
-import {setProducts} from "../redux/productSlice.js";
+import {clearFilter, filterByCategory, setProducts} from "../redux/productSlice.js";
 
 function Shop() {
 
@@ -15,8 +15,10 @@ function Shop() {
     // States
     const [isOpen, setIsOpen] = useState(false);
     const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState([]);
 
+    {data ? console.log("data exists") : "data not found"}
     // Effects
     useEffect(() => {
         document.title = "Shop | Exclusive";
@@ -25,6 +27,7 @@ function Shop() {
                 const products = res.data.products;
 
                 dispatch(setProducts(res.data.products));
+                setData(products);
                 {products ? console.log("api fetched successfully.") : "fetching..."}
                 const uniqueCategories = [
                     ...new Set(products.map(item => item.category))
@@ -36,7 +39,19 @@ function Shop() {
             .catch(console.error);
     }, [dispatch]);
 
-    // dispatch()
+
+    // Handlers
+    // show all products
+    const handleShowAll = () => {
+        dispatch(clearFilter());
+    };
+
+    // filter by category
+    const handleFilter = (category) => {
+        dispatch(filterByCategory(category));
+    };
+
+
 
     return (
         <section className={"flex container mt-35.25 relative pb-3"}>
@@ -64,13 +79,13 @@ function Shop() {
                 >
                     <ul className="flex flex-col gap-3 lg:gap-4">
                         <li>
-                            <button className={"font-bold text-nowrap text-xl"}>
+                            <button className={"font-bold text-nowrap text-xl cursor-pointer"} onClick={handleShowAll}>
                                 All Products
                             </button>
                         </li>
 
                         {categories.map(category => (
-                            <li key={category}>
+                            <li key={category} onClick={() => handleFilter(category)}>
                                 <button
                                     className={"text-nowrap capitalize cursor-pointer"}>{category.replace("-", " ")}</button>
                             </li>

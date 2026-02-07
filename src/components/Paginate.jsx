@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 
 function Paginate({itemsPerPage}) {
 
-    const items = useSelector((state) => state.products.value);
+    const items = useSelector((state) => state.products.filtered);
 
     function Items({currentItems}) {
         return (
@@ -50,17 +50,20 @@ function Paginate({itemsPerPage}) {
     return (
         <>
             <Items currentItems={currentItems}/>
-            <ReactPaginate
-                breakLabel="..."
-                nextLabel=""
-                onPageChange={handlePageClick}
-                pageRangeDisplayed={5}
-                pageCount={pageCount}
-                previousLabel=""
-                renderOnZeroPageCount={null}
-                pageClassName={"px-6.5 py-0.5 bg-black text-white font-bold cursor-pointer"}
-                className={"flex gap-2.5"}
-            />
+            {pageCount > 1 && (
+                <ReactPaginate
+                    breakLabel="..."
+                    nextLabel=""
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={pageCount}
+                    previousLabel=""
+                    renderOnZeroPageCount={null}
+                    pageClassName={"px-6.5 py-0.5 bg-black text-white font-bold cursor-pointer"}
+                    className={"flex gap-2.5"}
+                />
+            )}
+
         </>
     );
 }
