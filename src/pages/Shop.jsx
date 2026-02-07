@@ -17,8 +17,11 @@ function Shop() {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
+    const [productNum, setProductNum] = useState(6)
 
-    {data ? console.log("data exists") : "data not found"}
+    {
+        data ? console.log("data exists") : "data not found"
+    }
     // Effects
     useEffect(() => {
         document.title = "Shop | Exclusive";
@@ -28,7 +31,9 @@ function Shop() {
 
                 dispatch(setProducts(res.data.products));
                 setData(products);
-                {products ? console.log("api fetched successfully.") : "fetching..."}
+                {
+                    products ? console.log("api fetched successfully.") : "fetching..."
+                }
                 const uniqueCategories = [
                     ...new Set(products.map(item => item.category))
                 ];
@@ -50,7 +55,6 @@ function Shop() {
     const handleFilter = (category) => {
         dispatch(filterByCategory(category));
     };
-
 
 
     return (
@@ -100,16 +104,20 @@ function Shop() {
                 <div className={"Show flex gap-3 items-center justify-end"}>
                     <h2>Show: </h2>
                     <select
+                        onChange={(e) => {
+                            setProductNum(e.target.value);
+                            e.preventDefault();
+                        }}
                         className={"appearance-none px-11.25 py-px border border-gray-500/30 outline-0 rounded-md"}>
-                        <option>3</option>
-                        <option>6</option>
-                        <option>9</option>
+                        <option value={"6"}>6</option>
+                        <option value={"9"}>9</option>
+                        <option value={"12"}>12</option>
                     </select>
                 </div>
                 <div className="products grid justify-center gap-7.5 grid-cols-[repeat(3,270px)]">
                     {loading
-                        ? Array.from({ length: 9 }).map((_, i) => <Skeleton key={i} />)
-                        : <Paginate itemsPerPage={9} />
+                        ? Array.from({length: {productNum}}).map((_, i) => <Skeleton key={i}/>)
+                        : <Paginate itemsPerPage={productNum}/>
                     }
                 </div>
             </div>
