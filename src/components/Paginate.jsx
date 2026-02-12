@@ -20,6 +20,7 @@ function Paginate({itemsPerPage}) {
                             oldPrice={item.price}
                             rating={item.rating}
                             reviews={item.reviews.length}
+                            id={item.id}
                         />
                     ))}
             </>
