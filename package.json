@@ -12,6 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
     "@tailwindcss/vite": "^4.1.18",
+    "antd": "^6.3.0",
     "axios": "^1.13.4",
     "countdown-date-time": "^1.0.4",
     "react": "^19.2.0",
