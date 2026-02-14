@@ -3,20 +3,16 @@ import gamepadSmall from '../assets/gamepadSmall.png'
 import gamepadBig from '../assets/gamepadBig.png'
 import { Rate } from 'antd'
 import { useParams } from 'react-router'
-import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import BreadCrumb from "../components/BreadCrumb.jsx";
 
 const ProductDetails = () => {
     const [productData, setProductData] = useState([])
     const [buffer, setBuffer] = useState(false)
-    const [categories, setCategories] = useState([])
-    const [pageNumber, setPageNumber] = useState(6)
     const [images, setImages] = useState([])
     const [rating, setRating] = useState(1)
     const [reviewNumber, setReviewNumber] = useState([])
 
-    const dispatch = useDispatch()
     let params = useParams()
     let id = params.id
     async function apiFetch(){
