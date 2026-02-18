@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Mousewheel } from "swiper/modules";
@@ -9,9 +9,18 @@ import cardImg from "../assets/controller.png";
 import chair from "../assets/chair.png";
 import keyboard from "../assets/keyboard.png";
 import monitor from "../assets/monitor.png";
+import axios from "axios";
 
 export default function FlashSlider({ showPagination }) {
   const swiperRef = useRef(null);
+
+  const [fetchedData, setFetchedData] = useState([])
+
+  useEffect(() => {
+    axios.get("https://dummyjson.com/products")
+    .then((res)=>setFetchedData(res.data.products))
+    .catch((err)=>console.error(err))
+  }, []);
 
   return (
     <div className="relative">
@@ -48,20 +57,21 @@ export default function FlashSlider({ showPagination }) {
         }}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
       >
-        {[cardImg, chair, monitor, keyboard, cardImg, cardImg].map(
-          (img, i) => (
-            <SwiperSlide key={i}>
-              <SingleFlashCard
-                image={img}
-                title="Product Title"
-                newPrice={120}
-                oldPrice={160}
-                rating={4}
-                reviews={88}
-              />
-            </SwiperSlide>
-          )
-        )}
+        {fetchedData.map((item, i) => (
+          <SwiperSlide key={i}>
+            <SingleFlashCard
+              key={i}
+              image={item.thumbnail}
+              title={item.title}
+              newPrice={item.discountPercentage}
+              oldPrice={item.price}
+              rating={item.rating}
+              reviews={item.reviews.length}
+              id={item.id}
+              productDetail={item}
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

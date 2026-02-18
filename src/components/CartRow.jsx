@@ -1,21 +1,48 @@
-import React from 'react';
-import {MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp} from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { updateQuantity, removeFromCart } from "../redux/productSlice";
+import {
+  MdOutlineKeyboardArrowDown,
+  MdOutlineKeyboardArrowUp,
+} from "react-icons/md";
 
-function CartRow({img, name, price, quantity, subtotal}) {
-    return (
-        <div className="cart-row flex items-center justify-between px-10 py-6 shadow-lg mt-10">
-            <h2 className={"flex gap-5 items-center"}><img className={"w-12.5"} src={img} alt={"cart-item"}/><span>{name}</span></h2>
-            <h2>{price}</h2>
-            <div className={"flex items-center justify-center gap-1 px-3 py-1.5 border-2 border-gray-400 rounded-lg"}>
-                <h2>{quantity}</h2>
-                <div className={"flex flex-col"}>
-                    <button><MdOutlineKeyboardArrowUp /></button>
-                    <button><MdOutlineKeyboardArrowDown /></button>
-                </div>
-            </div>
-            <h2>{subtotal}</h2>
+function CartRow({ img, name, price, quantity, subtotal, id }) {
+  const dispatch = useDispatch();
+
+  const slicedTitle = name.length > 15 ? name.slice(0, 15) + "..." : name;
+
+  const increase = () =>
+    dispatch(updateQuantity({ id, quantity: quantity + 1 }));
+  const decrease = () =>
+    dispatch(updateQuantity({ id, quantity: quantity - 1 }));
+
+  return (
+    <div className="cart-row flex items-center justify-between px-10 py-6 shadow-lg mt-4">
+      {/* Product */}
+      <div className="flex items-center w-2/5 gap-4">
+        <img src={img} alt="cart-item" className="w-20 h-20 object-contain" />
+        <span>{slicedTitle}</span>
+      </div>
+
+      {/* Price */}
+      <div className="w-1/5 text-center">${price}</div>
+
+      {/* Quantity */}
+      <div className="flex items-center justify-center w-1/5 gap-2 border-2 border-gray-400 rounded-lg px-3 py-1.5">
+        <span>{quantity}</span>
+        <div className="flex flex-col">
+          <button onClick={increase}>
+            <MdOutlineKeyboardArrowUp />
+          </button>
+          <button onClick={decrease}>
+            <MdOutlineKeyboardArrowDown />
+          </button>
         </div>
-    );
+      </div>
+
+      {/* Subtotal */}
+      <div className="w-1/5 text-center">${(price * quantity).toFixed(2)}</div>
+    </div>
+  );
 }
 
 export default CartRow;

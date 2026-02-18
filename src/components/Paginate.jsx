@@ -9,21 +9,22 @@ function Paginate({itemsPerPage}) {
 
     function Items({currentItems}) {
         return (
-            <>
-                {currentItems &&
-                    currentItems.map((item, i) => (
-                        <SingleFlashCard
-                            key={i}
-                            image={item.thumbnail}
-                            title={item.title}
-                            newPrice={item.discountPercentage}
-                            oldPrice={item.price}
-                            rating={item.rating}
-                            reviews={item.reviews.length}
-                            id={item.id}
-                        />
-                    ))}
-            </>
+          <>
+            {currentItems &&
+              currentItems.map((item, i) => (
+                <SingleFlashCard
+                  key={i}
+                  image={item.thumbnail}
+                  title={item.title}
+                  newPrice={item.discountPercentage}
+                  oldPrice={item.price}
+                  rating={item.rating}
+                  reviews={item.reviews.length}
+                  id={item.id}
+                  productDetail={item}
+                />
+              ))}
+          </>
         );
     }
 

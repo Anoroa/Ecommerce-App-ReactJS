@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import logo from "../assets/Logo.png";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { FiSearch, FiMenu, FiX } from "react-icons/fi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const navLinks = [
     { title: "Home", path: "/" },
@@ -15,10 +16,13 @@ const Navbar = () => {
     { title: "Sign Up", path: "/sign-up" },
   ];
 
+  const handleCartNavigate = () => {
+    navigate("/cart")
+  };
+
   return (
     <div className="pb-7">
       <div className="container pt-7 flex justify-between items-center">
-
         {/* Logo */}
         <Link to="/">
           <img src={logo} alt="logo" />
@@ -61,13 +65,12 @@ const Navbar = () => {
           </div>
 
           <FaRegHeart className="text-2xl hidden lg:block" />
-          <AiOutlineShoppingCart className="text-3xl hidden lg:block" />
+          <button onClick={handleCartNavigate} className="cursor-pointer">
+            <AiOutlineShoppingCart className="text-3xl hidden lg:block" />
+          </button>
 
           {/* Hamburger (sm + md) */}
-          <button
-            className="lg:hidden text-3xl"
-            onClick={() => setOpen(!open)}
-          >
+          <button className="lg:hidden text-3xl" onClick={() => setOpen(!open)}>
             {open ? <FiX /> : <FiMenu />}
           </button>
         </div>
@@ -90,7 +93,9 @@ const Navbar = () => {
 
           <div className="flex gap-6 pt-4">
             <FaRegHeart className="text-2xl" />
-            <AiOutlineShoppingCart className="text-3xl" />
+            <button className="cursor-pointer" onClick={handleCartNavigate}>
+              <AiOutlineShoppingCart className="text-3xl" />
+            </button>
           </div>
         </ul>
       </div>
