@@ -64,7 +64,9 @@ const Navbar = () => {
             </button>
           </div>
 
-          <FaRegHeart className="text-2xl hidden lg:block" />
+          <button onClick={()=>navigate("/wishlist")} className="cursor-pointer">
+            <FaRegHeart className="text-2xl hidden lg:block" />
+          </button>
           <button onClick={handleCartNavigate} className="cursor-pointer">
             <AiOutlineShoppingCart className="text-3xl hidden lg:block" />
           </button>

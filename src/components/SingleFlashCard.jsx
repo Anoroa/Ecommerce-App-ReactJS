@@ -4,7 +4,8 @@ import { LuEye } from "react-icons/lu";
 import { FaRegHeart } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { setCart } from "../redux/productSlice";
+import { setCart, setWishlist } from "../redux/productSlice";
+import { Bounce, toast } from "react-toastify";
 
 const SingleFlashCard = ({
   image,
@@ -16,6 +17,7 @@ const SingleFlashCard = ({
   id,
   productDetail
 }) => {
+
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const handleClick = () => {
@@ -28,6 +30,25 @@ const SingleFlashCard = ({
       return;
     }
     dispatch(setCart(productDetail));
+  };
+
+  const handleWish = () => {
+    if (!productDetail) {
+      console.error("Product detail missing");
+      return;
+    }
+    dispatch(setWishlist(productDetail));
+    toast.success("Added to wishlist!", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
   };
 
 
@@ -47,7 +68,7 @@ const SingleFlashCard = ({
           </span>
         )}
 
-        <button className="text-xl p-1.25 absolute top-2 right-3 bg-white rounded-full">
+        <button className="text-xl p-1.25 absolute top-2 right-3 bg-white rounded-full cursor-pointer" onClick={handleWish}>
           <FaRegHeart />
         </button>
 

@@ -4,6 +4,7 @@ const initialState = {
   value: [],
   filtered: [],
   cart: JSON.parse(localStorage.getItem("cart")) || [],
+  wishList: JSON.parse(localStorage.getItem("wishList")) || [],
 };
 
 export const productSlice = createSlice({
@@ -22,9 +23,9 @@ export const productSlice = createSlice({
     clearFilter: (state) => {
       state.filtered = state.value;
     },
+    // ============Cart=============
     setCart: (state, action) => {
       if (!action.payload) return;
-
       // itec check
       const item = state.cart.find((p) => p.id === action.payload.id);
       if (item) {
@@ -45,10 +46,24 @@ export const productSlice = createSlice({
         localStorage.setItem("cart", JSON.stringify(state.cart));
       }
     },
-
     removeFromCart: (state, action) => {
       state.cart = state.cart.filter((p) => p.id !== action.payload);
       localStorage.setItem("cart", JSON.stringify(state.cart));
+    },
+    // ============WishList=============
+    setWishlist: (state, action) => {
+      if (!action.payload) return;
+
+      const exists = state.wishList.find((p) => p.id === action.payload.id);
+      if (!exists) {
+        state.wishList.push(action.payload);
+        localStorage.setItem("wishList", JSON.stringify(state.wishList));
+      }
+    },
+
+    removeWishlist: (state, action) => {
+      state.wishList = state.wishList.filter((p) => p.id !== action.payload);
+      localStorage.setItem("wishList", JSON.stringify(state.wishList));
     },
   },
 });
@@ -60,6 +75,8 @@ export const {
   setCart,
   updateQuantity,
   removeFromCart,
+  setWishlist,
+  removeWishlist
 } = productSlice.actions;
 
 export default productSlice.reducer;

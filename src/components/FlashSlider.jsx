@@ -5,10 +5,6 @@ import { Mousewheel } from "swiper/modules";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 import SingleFlashCard from "./SingleFlashCard";
-import cardImg from "../assets/controller.png";
-import chair from "../assets/chair.png";
-import keyboard from "../assets/keyboard.png";
-import monitor from "../assets/monitor.png";
 import axios from "axios";
 
 export default function FlashSlider({ showPagination }) {

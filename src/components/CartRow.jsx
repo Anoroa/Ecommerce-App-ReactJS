@@ -8,7 +8,9 @@ import {
 function CartRow({ img, name, price, quantity, subtotal, id }) {
   const dispatch = useDispatch();
 
-  const slicedTitle = name.length > 15 ? name.slice(0, 15) + "..." : name;
+  const slicedTitle =
+    name?.length > 15 ? name.slice(0, 15) + "..." : name || "";
+
 
   const increase = () =>
     dispatch(updateQuantity({ id, quantity: quantity + 1 }));

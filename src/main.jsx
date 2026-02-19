@@ -4,11 +4,12 @@ import './index.css'
 import {createBrowserRouter, RouterProvider} from 'react-router'
 import RootLayout from './layouts/PrimaryLayout'
 import Home from './pages/Home'
-import Shop from './Pages/Shop'
 import {Provider} from 'react-redux'
 import Store from './Redux/Store'
 import ProductDetails from './pages/ProductDetails'
 import Cart from "./pages/Cart.jsx";
+import Wishlist from "./pages/Wishlist.jsx"
+import Shop from "./pages/Shop.jsx"
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
             {path: 'Shop', Component: Shop},
             {path: "product-details/:id", Component: ProductDetails},
             {path: "/cart", Component: Cart},
+            {path: "/wishlist", Component: Wishlist},
         ]
     }
 ])
