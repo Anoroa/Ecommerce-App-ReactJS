@@ -30,6 +30,17 @@ const SingleFlashCard = ({
       return;
     }
     dispatch(setCart(productDetail));
+     toast.success("Added to cart!", {
+       position: "top-right",
+       autoClose: 1000,
+       hideProgressBar: false,
+       closeOnClick: true,
+       pauseOnHover: false,
+       draggable: true,
+       progress: undefined,
+       theme: "light",
+       transition: Bounce,
+     });
   };
 
   const handleWish = () => {
@@ -40,7 +51,7 @@ const SingleFlashCard = ({
     dispatch(setWishlist(productDetail));
     toast.success("Added to wishlist!", {
       position: "top-right",
-      autoClose: 2000,
+      autoClose: 1000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: false,

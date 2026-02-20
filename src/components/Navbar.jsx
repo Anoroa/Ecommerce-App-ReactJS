@@ -4,10 +4,13 @@ import { Link, useNavigate } from "react-router";
 import { FiSearch, FiMenu, FiX } from "react-icons/fi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const cart = useSelector((state) => state.products.cart);
+  const wishList = useSelector((state) => state.products.wishList);
 
   const navLinks = [
     { title: "Home", path: "/" },
@@ -17,7 +20,7 @@ const Navbar = () => {
   ];
 
   const handleCartNavigate = () => {
-    navigate("/cart")
+    navigate("/cart");
   };
 
   return (
@@ -64,11 +67,27 @@ const Navbar = () => {
             </button>
           </div>
 
-          <button onClick={()=>navigate("/wishlist")} className="cursor-pointer">
+          <button
+            onClick={() => navigate("/wishlist")}
+            className="cursor-pointer relative"
+          >
             <FaRegHeart className="text-2xl hidden lg:block" />
+            {wishList.length > 0 ? (
+              <span className="absolute text-xs px-0.75 py-0.5 text-white bg-red-primary rounded-full -top-2.5 -right-2">{wishList.length}</span>
+            ) : (
+              <></>
+            )}
           </button>
-          <button onClick={handleCartNavigate} className="cursor-pointer">
+          <button
+            onClick={handleCartNavigate}
+            className="cursor-pointer relative"
+          >
             <AiOutlineShoppingCart className="text-3xl hidden lg:block" />
+            {cart.length > 0 ? (
+              <span className="absolute text-xs px-1 py-px text-white bg-red-primary rounded-full -top-1 -right-1">{cart.length}</span>
+            ) : (
+              <></>
+            )}
           </button>
 
           {/* Hamburger (sm + md) */}

@@ -32,10 +32,10 @@ function CartRow({ img, name, price, quantity, subtotal, id }) {
       <div className="flex items-center justify-center w-1/5 gap-2 border-2 border-gray-400 rounded-lg px-3 py-1.5">
         <span>{quantity}</span>
         <div className="flex flex-col">
-          <button onClick={increase}>
+          <button onClick={increase} className="cursor-pointer">
             <MdOutlineKeyboardArrowUp />
           </button>
-          <button onClick={decrease}>
+          <button onClick={decrease} className="cursor-pointer">
             <MdOutlineKeyboardArrowDown />
           </button>
         </div>
